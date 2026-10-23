@@ -1,0 +1,47 @@
+  {# FIX (the actual /profile killer): the extends tag closed with a bare '}'
+     instead of ' %}' - "{% extends "layout.html"}". Jinja then swallowed text
+     up to the next %} on line 3 and compiled nonsense -> TemplateSyntaxError
+     "unexpected '}'" on every single profile visit. #}
+  {% extends "layout.html" %}
+
+  {% block title%}profile{% endblock %}
+
+  {% block content %}
+
+  <div class="container">
+
+    <div class="px-4 py-5 my-5 text-center">
+        <img class="d-block mx-auto mb-4"
+        src="{{ url_for('static', filename='images/0.6.jpg')}}" alt="profile picture"
+        {# this tag used to carry a SECOND empty alt='' plus empty width/height
+           attributes - duplicate/empty attributes are invalid HTML (browsers
+           keep the first alt, ignore the rest); removed #}
+        />
+        <h1 class="display-5 fw-bold text-body-emphasis">{{account.username}}</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4"> Name: {{account.name}}</p>
+            <p class="lead mb-4">password: ******</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center" >
+
+                <button type="button" class="btn btn-primary btn-lg px-4 gap-3">
+                    Contact me
+                </button>
+
+                <button type="button" class="btn btn-secondary btn-lg px-4">
+                    Download resume
+                </button>
+
+                <a href="{{ url_for('logout')}}" class="btn btn-outline-danger btn-lg px-4">
+                    logout
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+  </div>
+
+  {# FIX (was a TemplateSyntaxError on every visit): the `{% block content %}`
+     above was never closed - the original file ended right at line 38, so
+     /profile crashed before rendering anything. #}
+  {% endblock %}

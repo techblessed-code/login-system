@@ -1,0 +1,101 @@
+{% extends  "layout.html" %} {% block title %}Register Account{% endblock %} {% block content %}
+
+
+<div class="container">
+    <h1>LOGIN SYSTEM</h1>
+   <H2>Welcome - Register for free</H2>
+   <div class="row">
+    <div class="col-md-6">
+        <form method="POST" action="{{url_for('register')}}">
+            <div class="mb-3">
+                <label for="username" class="form-label">username</label>
+                <input
+                 type="text"
+                 name="username"
+                 class="form-control"
+                 placeholder="username"
+                 id="username"
+                 aria-describedby="usernameHelp"
+                 />
+                 <div id="usernameHelp" class="form-text">
+                    Enter Your Name
+                 </div>                                 
+            </div>
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input 
+                type="text"
+                name="name"
+                class="form-control"
+                placeholder="Enter your name"
+                aria-describedby="nameHelp"
+                />
+
+                <div id="nameHelp" class="form-text">
+                    We will never share your Email with anyone else
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input 
+                type="text"
+                name="phone"
+                class="form-control"
+                placeholder="Enter your phone number"
+                id="phone"
+                aria-describedby="phoneHelp"
+                />
+                <div id="phoneHelp" class="form-text">
+                    we'll Never share your phone number with anyone else
+                </div>
+            </div>
+
+            {# FIX: the form had NO email input at all, while app.py required
+               'email' in request.form - registration could never succeed.
+               The field below gives the missing input a proper home. #}
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                type="email"
+                name="email"
+                class="form-control"
+                id="email"
+                placeholder="Enter your email"
+                aria-describedby="emailHelp"
+                />
+                <div id="emailHelp" class="form-text">
+                    We will never share your Email with anyone else
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input 
+                type="password"
+                name="password"
+                class="form-control"
+                id="password"
+                placeholder="password"
+                />
+            </div>
+
+            {# FIX: the view passes `msg` (validation errors, duplicate account)
+               but this template never displayed it - errors were invisible.
+               Same alert pattern as login.html. #}
+            <div class="alert {{ 'alert-danger' if msg else 'd-none' }}">{{ msg }}</div>
+
+            <button type="submit" class="btn btn-primary w-100">Register Now</button>
+
+            <div class="mt-2">
+                Already have an account? <a href="/login">Login here</a>
+            </div>
+        </form>
+    
+    </div>
+    <div class="col-md-6"><img src="{{url_for('static', filename='images/06.jpg')}}" alt="Login image"></div>
+</div>
+
+{% endblock %}
+

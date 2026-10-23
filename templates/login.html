@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h2>Login</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <form method="POST" action="/login">
+            <div class="mb-3">
+                <label for="username" class="form-label">username</label>
+                <input
+                 type="text"
+                 name="username"
+                 class="form-control"
+                 placeholder="username or email or phone"
+                 id="username"
+                 aria-describedby="usernameHelp"
+                 >
+                 <br>
+                 <div id="usernameHelp" class="form-text">
+                    We'll never share your email with anyone else.
+                 </div>
+            </div>
+ 
+            <div class="mb-3">
+                <label for="username" class="form-label">password</label>
+                <input
+                 type="password"
+                 name="password"
+                 class="form-control"
+                 placeholder="password"
+                 id="password"
+                 aria-describedby="passwordHelp"
+                 />
+            </div>
+
+                 <div>
+                    Dont have an account? <a href="/register">Register here</a>
+                 </div>
+                 <div class="alert {{'alert-danger' if msg else 'd-one' }}">{{ msg }}</div>
+
+                 <button type="submit" class="btn btn-primary">Login Now</button>
+                 </form>
+            </div>
+            <div class="col-md-6"><img src="{{ url_for('static', filename='images/06.jpg')}}" alt="Login image"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

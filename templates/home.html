@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{# NEW FILE: the home route rendered home.html, which did not exist - every
+   visit to / while logged in crashed with TemplateNotFound (500). #}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body text-center p-5">
+          <h1 class="display-6 fw-bold">Welcome back{% if name %}, {{ name }}{% else %}, {{ username }}{% endif %}!</h1>
+          <p class="lead text-muted mt-3">
+            You are logged in as <b>{{ username }}</b>{% if name %} ({{ name }}){% endif %}.
+          </p>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-4">
+            <a href="{{ url_for('profile') }}" class="btn btn-primary btn-lg">My profile</a>
+            <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-lg">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
